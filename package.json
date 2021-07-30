@@ -2,6 +2,9 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "[![Actions Status](https://github.com/kendudan/frontend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/kendudan/frontend-project-lvl2/actions)",
+  "bin": {
+    "gendiff": "bin/index.js"
+  },
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,8 +18,11 @@
   "bugs": {
     "url": "https://github.com/kendudan/frontend-project-lvl2/issues"
   },
+  "type": "module",
   "homepage": "https://github.com/kendudan/frontend-project-lvl2#readme",
   "dependencies": {
-    "commander": "^7.2.0"
+    "commander": "^7.2.0",
+    "lodash": "^4.17.21",
+    "process": "^0.11.10"
   }
 }
