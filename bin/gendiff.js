@@ -1,52 +1,40 @@
-import { Command } from 'commander';
-import * as process from 'process';
-import * as fs from 'fs';
+import fs from 'fs';
+import path from 'path';
+import process from 'process';
 import _ from 'lodash';
-import * as path from 'path';
 
 const genDiff = (filepath1, filepath2) => {
-  const program = new Command();
-  program
-    .version('0.0.1')
-    .arguments(`<${filepath1}> <${filepath2}>`)
-    .description('Compares two configuration files and shows a difference.')
-    .option('-f, --format [type]', 'output format')
-    .action((file1, file2) => {
-      const data1 = fs.readFileSync(path.resolve(process.cwd(), file1), 'utf-8');
-      const parsedData1 = JSON.parse(data1);
-      const keys1 = Object.keys(parsedData1);
-      const entries1 = Object.entries(parsedData1);
+  const data1 = fs.readFileSync(path.resolve(process.cwd(), filepath1), 'utf-8');
+  const parsedData1 = JSON.parse(data1);
+  const keys1 = Object.keys(parsedData1);
+  const entries1 = Object.entries(parsedData1);
 
-      const data2 = fs.readFileSync(path.resolve(process.cwd(), file2), 'utf-8');
-      const parsedData2 = JSON.parse(data2);
-      const keys2 = Object.keys(parsedData2);
-      const entries2 = Object.entries(parsedData2);
+  const data2 = fs.readFileSync(path.resolve(process.cwd(), filepath2), 'utf-8');
+  const parsedData2 = JSON.parse(data2);
+  const keys2 = Object.keys(parsedData2);
+  const entries2 = Object.entries(parsedData2);
 
-      const result = [];
-      entries1.forEach((key1, value1) => {
-        if (!keys2.includes(key1)) {
-          result.push(`- ${key1}: ${value1}`);
+  const result = [];
+  entries1.forEach(([key1, value1]) => {
+    if (!keys2.includes(key1)) {
+      result.push(`- ${key1}: ${value1}`);
+    }
+    entries2.forEach(([key2, value2]) => {
+      if (_.indexOf(keys1, key2) === -1) {
+        if (!result.includes(`+ ${key2}: ${value2}`)) {
+          result.push(`+ ${key2}: ${value2}`);
         }
-        entries2.forEach((key2, value2) => {
-          if (_.indexOf(keys1, key2) === -1) {
-            if (!result.includes(`+ ${key2}: ${value2}`)) {
-              result.push(`+ ${key2}: ${value2}`);
-            }
-          }
-          if (key1 === key2 && value1 === value2) {
-            result.push(`  ${key1}: ${value1}`);
-          }
-          if (key1 === key2 && value1 !== value2) {
-            result.push(`- ${key1}: ${value1}`);
-            result.push(`+ ${key1}: ${value2}`);
-          }
-        });
-      });
-      const newResult = `{\n  ${result.join('\n  ')}\n}`;
-      console.log(newResult);
+      }
+      if (key1 === key2 && value1 === value2) {
+        result.push(`  ${key1}: ${value1}`);
+      }
+      if (key1 === key2 && value1 !== value2) {
+        result.push(`- ${key1}: ${value1}`);
+        result.push(`+ ${key1}: ${value2}`);
+      }
     });
-
-  program.parse();
+  });
+  return `{\n  ${result.sort((a, b) => a.slice(2, 7).localeCompare(b.slice(2, 7))).join('\n  ')}\n}`;
 };
 
 export default genDiff;
