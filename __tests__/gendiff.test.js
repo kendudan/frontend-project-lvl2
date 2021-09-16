@@ -17,3 +17,9 @@ test('compare 2 json files', () => {
   expect(genDiff(pathToFile1, pathToFile2))
     .toBe(mustBe);
 });
+test('compare 2 yaml files', () => {
+  const pathToFile1 = getFixturePath('file1.yaml');
+  const pathToFile2 = getFixturePath('file2.yaml');
+  expect(genDiff(pathToFile1, pathToFile2))
+    .toBe(mustBe);
+});
