@@ -5,3 +5,4 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/54bd1ec51cdfa85bf66d/test_coverage)](https://codeclimate.com/github/kendudan/frontend-project-lvl2/test_coverage)
 https://asciinema.org/a/cQrY3rVMOgpCO04fQ7fK13Oet
 https://asciinema.org/a/QGivBPJgkWZHiIxfKe1MyP7Yx
+https://asciinema.org/a/bCJweofSdEYhktgp0ENxQb1Ze
