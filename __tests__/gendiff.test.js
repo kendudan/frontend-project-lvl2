@@ -10,6 +10,7 @@ const __dirname = dirname(__filename);
 
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 const mustBe = fs.readFileSync('./__fixtures__/mustBe.txt', 'utf-8');
+const mustBeWithFormatPlain = fs.readFileSync('./__fixtures__/mustBeWithFormatPlain.txt', 'utf-8');
 
 test('compare 2 json files', () => {
   const pathToFile1 = getFixturePath('file1.json');
@@ -22,4 +23,17 @@ test('compare 2 yaml files', () => {
   const pathToFile2 = getFixturePath('file2.yaml');
   expect(genDiff(pathToFile1, pathToFile2))
     .toBe(mustBe);
+});
+
+test('compare 2 json files with format', () => {
+  const pathToFile1 = getFixturePath('file1.json');
+  const pathToFile2 = getFixturePath('file2.json');
+  expect(genDiff(pathToFile1, pathToFile2, 'plain'))
+    .toBe(mustBeWithFormatPlain);
+});
+test('compare 2 yaml files with format', () => {
+  const pathToFile1 = getFixturePath('file1.yaml');
+  const pathToFile2 = getFixturePath('file2.yaml');
+  expect(genDiff(pathToFile1, pathToFile2, 'plain'))
+    .toBe(mustBeWithFormatPlain);
 });
