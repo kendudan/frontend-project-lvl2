@@ -1,7 +1,6 @@
 import _ from 'lodash';
 
 const stylish = (currentValue, depth) => {
-  console.log(currentValue);
   const replacer = ' ';
   const currentIndent = replacer.repeat(depth);
   const bracketIndent = replacer.repeat(depth - 2);
