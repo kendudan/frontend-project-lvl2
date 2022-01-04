@@ -4,6 +4,7 @@ import process from 'process';
 import _ from 'lodash';
 import getParsedData from '../src/parsers.js';
 import stylish from '../src/formatter.js';
+import plain from '../src/plain.js';
 
 const genDiff = (filepath1, filepath2, format = 'stylish') => {
   const file1Extension = path.extname(filepath1);
@@ -40,8 +41,12 @@ const genDiff = (filepath1, filepath2, format = 'stylish') => {
     });
   };
   const data = getData(parsedData1, parsedData2);
+  console.log(data);
   if (format === 'stylish') {
     return stylish(data, 2);
+  }
+  if (format === 'plain') {
+    return plain(data, '');
   }
   return 'Unknown format';
 };
