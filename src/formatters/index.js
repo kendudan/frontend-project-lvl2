@@ -1,5 +1,6 @@
 import stylish from './stylish.js';
 import plain from './plain.js';
+import json from './json.js';
 
 const getFormatter = (data, formatName) => {
   let formattedData;
@@ -9,6 +10,9 @@ const getFormatter = (data, formatName) => {
       break;
     case 'plain':
       formattedData = plain(data, '');
+      break;
+    case 'json':
+      formattedData = json(data);
       break;
     default: console.log('Unknown format');
   }
