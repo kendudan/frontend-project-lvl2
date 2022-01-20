@@ -25,12 +25,11 @@ const stylish = (currentValue, depth) => {
       return `${currentIndent}  ${el.key}: ${stylish(el.children, depth + 4)}`;
     }
     if (el.type === 'various') {
-      if (typeof el.firstValue === 'object') {
+      if (typeof el.firstValue === 'object' && el.firstValue !== null) {
         return `${currentIndent}- ${el.key}: ${stylish(el.firstValue, depth + 4)}\n${currentIndent}+ ${el.key}: ${el.secondValue}`;
       }
       if (typeof el.secondValue === 'object' && el.secondValue !== null) {
-        return `${currentIndent}- ${el.key}: ${el.firstValue}\n
-        ${currentIndent}+ ${el.key}: ${stylish(el.secondValue, depth + 1)}`;
+        return `${currentIndent}- ${el.key}: ${el.firstValue}\n${currentIndent}+ ${el.key}: ${stylish(el.secondValue, depth + 4)}`;
       }
       return `${currentIndent}- ${el.key}: ${el.firstValue}\n${currentIndent}+ ${el.key}: ${el.secondValue}`;
     }
@@ -52,6 +51,7 @@ const stylish = (currentValue, depth) => {
     if (typeof el.value === 'object') {
       return `${currentIndent}${el.key}: ${stylish(el.value, depth + 4)}`;
     }
+    console.log(el.key);
     return `${currentIndent}${el.key}: ${el.value}`;
   });
   return [
