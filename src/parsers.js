@@ -1,20 +1,16 @@
 import * as yaml from 'js-yaml';
 
 const getParsedData = (data, extension) => {
-  let parsedData;
   switch (extension) {
     case '.json':
-      parsedData = JSON.parse(data);
-      break;
+      return JSON.parse(data);
     case '.yaml':
-      parsedData = yaml.load(data);
-      break;
+      return yaml.load(data);
     case '.yml':
-      parsedData = yaml.load(data);
-      break;
+      return yaml.load(data);
     default: console.log('No such extension');
   }
-  return parsedData;
+  return 'Specify extension';
 };
 
 export default getParsedData;
